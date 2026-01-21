@@ -1,0 +1,7 @@
+# Core dependencies
+requests>=2.31.0          # HTTP requests for Etherscan API
+openpyxl>=3.1.2           # Excel file handling (read/write xlsx)
+ttkbootstrap>=1.10.1      # Modern GUI with calendar widget
+
+# For packaging into executable (optional - install when ready to distribute)
+# pyinstaller>=6.0.0
