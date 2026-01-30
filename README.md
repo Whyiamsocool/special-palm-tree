@@ -2,23 +2,39 @@
 
 Export ERC-20 token transactions from Etherscan to Excel files.
 
-## Quick Start
+---
 
-### Option 1: Pre-built Executables (Recommended for Users)
-No Python installation required!
+## 🚀 For Non-Technical Users (Fastest Way)
 
-- **macOS:** Download and run `WalletExporter.app`
-- **Windows:** Download and run `WalletExporter.exe`
+**No coding experience? No problem!**
 
-See [Releases](https://github.com/yourusername/wallet-exporter/releases) for pre-built binaries.
+1. **Download** the app for your computer:
+   - **Windows:** Download `WalletExporter.exe` from [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases)
+   - **macOS:** Download `WalletExporter.app` from [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases)
 
-### Option 2: Run from Source (For Development)
+2. **Double-click** to open (just like any other app)
+
+3. **Get a free API key:**
+   - Go to https://etherscan.io/apis
+   - Click "Create Account" (if needed)
+   - Paste the API key into the app
+
+4. **Enter your wallet address** (starts with 0x)
+
+5. **Click "Export"** and choose where to save the Excel file
+
+That's it! ✨
+
+---
+
+## Advanced: Run from Source Code
+
+**For developers who want to run from source:**
 
 ```bash
-# Install Python 3.11+
 # Clone the repository
-git clone https://github.com/yourusername/wallet-exporter.git
-cd wallet-exporter
+git clone https://github.com/Whyiamsocool/special-palm-tree.git
+cd special-palm-tree
 
 # Create virtual environment
 python3 -m venv venv
@@ -33,21 +49,21 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-## Building Executables
+## Advanced: Building Executables (For Developers)
 
-To create standalone executables (.app or .exe):
+If you want to create your own .app or .exe from the source code:
 
 **macOS:**
 ```bash
 ./build_macos.sh
+# Creates: dist/WalletExporter.app
 ```
 
 **Windows:**
 ```bash
 build_windows.bat
+# Creates: dist/WalletExporter/WalletExporter.exe
 ```
-
-Output will be in the `dist/` folder.
 
 See [BUILD.md](BUILD.md) for detailed build instructions and troubleshooting.
 
@@ -62,27 +78,44 @@ See [BUILD.md](BUILD.md) for detailed build instructions and troubleshooting.
 
 ## Requirements
 
-### To Run Pre-built Executable
-- macOS 10.14+ or Windows 10+
-- Internet connection for API calls
+### Just Want to Use It? (Non-Technical Users)
+- **Windows 10+** or **macOS 10.14+**
+- **Internet connection** (for Etherscan API)
+- **That's all!** No Python, no setup, no coding needed
 
-### To Run from Source
-- Python 3.11+
-- Dependencies listed in `requirements.txt`
+### Want to Build It Yourself? (Developers)
+- **Python 3.11+**
+- Basic terminal knowledge
+- See [BUILD.md](BUILD.md) for detailed instructions
 
-### To Build Executables
-- Python 3.11+
-- All runtime dependencies
-- PyInstaller
+## How to Use
 
-## Usage
+### Step 1: Get a Free API Key
+- Visit https://etherscan.io/apis
+- Click "Create Account" (if you don't have one)
+- Copy your API key
 
-1. Get an Etherscan API key (free at https://etherscan.io/apis)
-2. Enter your API key in the app
-3. Enter Ethereum wallet addresses (0x...)
-4. Choose a date range (optional)
-5. Click "Export" and select output Excel file
-6. Open the resulting Excel file with your transaction data
+### Step 2: Open the App
+- Double-click `WalletExporter.app` (macOS) or `WalletExporter.exe` (Windows)
+
+### Step 3: Paste API Key
+- Paste your Etherscan API key into the "API Key" field
+- Click "Save"
+
+### Step 4: Add Your Wallet
+- Paste your Ethereum wallet address (starts with 0x)
+- Example: `0x742d35Cc6634C0532925a3b844Bc9e7595f42D8e`
+- Click "Add to List"
+
+### Step 5: Export Transactions
+- (Optional) Select a date range to filter
+- Click "Export"
+- Choose where to save the Excel file
+- Done! Your transactions are in Excel
+
+### Step 6: View Results
+- Open the Excel file with Microsoft Excel, Google Sheets, or similar
+- See all your transactions with dates, amounts, and details
 
 ## Architecture
 
@@ -100,9 +133,30 @@ To contribute:
 
 [Add your license here]
 
-## Support
+## Getting Help
 
-For issues or questions:
-- Check [BUILD.md](BUILD.md) for build troubleshooting
-- See [CLAUDE.md](CLAUDE.md) for architecture and implementation details
-- Report issues on GitHub
+### Common Issues
+
+**"Cannot verify developer" (macOS)**
+- Right-click the app → Click "Open"
+- Click "Open" in the confirmation dialog
+- The app will remember your choice
+
+**"Windows protected your PC" (Windows)**
+- Click "More info"
+- Click "Run anyway"
+- The app will remember your choice
+
+**"API key not working"**
+- Make sure you're on https://etherscan.io/apis (not etherscan.com)
+- Copy the entire API key (no extra spaces)
+- Some wallets may have API rate limit restrictions
+
+**"Transactions not showing"**
+- Check your wallet address starts with `0x`
+- Make sure you have an Etherscan API key set
+- Check internet connection
+
+### Still Need Help?
+- Report issues on [GitHub Issues](https://github.com/Whyiamsocool/special-palm-tree/issues)
+- Include: your OS version, what you were trying to do, and any error messages
