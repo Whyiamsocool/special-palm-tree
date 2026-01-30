@@ -26,23 +26,19 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Windows EXE
-        run: |
-          cd .
-          pyinstaller WalletExporter.spec
-        shell: cmd
+        run: pyinstaller WalletExporter.spec
 
       - name: Create ZIP archive
         run: |
           cd dist
-          powershell Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip
+          powershell -Command "Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip -Force"
           cd ..
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         if: github.event_name == 'release'
         with:
-          files: |
-            dist/WalletExporter.zip
+          files: dist/WalletExporter.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -79,7 +75,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: github.event_name == 'release'
         with:
-          files: |
-            dist/WalletExporter.app.zip
+          files: dist/WalletExporter.app.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
