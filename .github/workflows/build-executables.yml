@@ -11,71 +11,23 @@ jobs:
     name: Build Windows EXE
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.12'
-          cache: 'pip'
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Verify spec file exists
-        run: |
-          if (Test-Path "WalletExporter.spec") {
-            echo "✓ WalletExporter.spec found"
-          } else {
-            echo "✗ WalletExporter.spec NOT found"
-            exit 1
-          }
-        shell: powershell
+      - name: Build with PyInstaller
+        run: pyinstaller WalletExporter.spec
 
-      - name: Verify src folder exists
-        run: |
-          if (Test-Path "src") {
-            echo "✓ src folder found"
-            dir src
-          } else {
-            echo "✗ src folder NOT found"
-            exit 1
-          }
-        shell: powershell
-
-      - name: Build Windows EXE
-        run: |
-          echo "Running PyInstaller..."
-          pyinstaller WalletExporter.spec
-          if ($LASTEXITCODE -ne 0) {
-            echo "Build failed!"
-            exit 1
-          }
-          echo "Build completed successfully"
-        shell: powershell
-
-      - name: Verify build output
-        run: |
-          if (Test-Path "dist\WalletExporter") {
-            echo "✓ Build output found"
-            dir dist\WalletExporter
-          } else {
-            echo "✗ Build output NOT found"
-            exit 1
-          }
-        shell: powershell
-
-      - name: Create ZIP archive
+      - name: Create ZIP
         run: |
           cd dist
-          Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip -Force
-          echo "✓ ZIP created"
-          dir WalletExporter.zip
+          Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip
           cd ..
-        shell: powershell
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
@@ -90,65 +42,22 @@ jobs:
     name: Build macOS APP
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.12'
-          cache: 'pip'
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Verify spec file exists
-        run: |
-          if [ -f "WalletExporter.spec" ]; then
-            echo "✓ WalletExporter.spec found"
-          else
-            echo "✗ WalletExporter.spec NOT found"
-            exit 1
-          fi
+      - name: Build with PyInstaller
+        run: pyinstaller WalletExporter.spec
 
-      - name: Verify src folder exists
-        run: |
-          if [ -d "src" ]; then
-            echo "✓ src folder found"
-            ls -la src
-          else
-            echo "✗ src folder NOT found"
-            exit 1
-          fi
-
-      - name: Build macOS APP
-        run: |
-          echo "Running PyInstaller..."
-          pyinstaller WalletExporter.spec
-          if [ $? -ne 0 ]; then
-            echo "Build failed!"
-            exit 1
-          fi
-          echo "Build completed successfully"
-
-      - name: Verify build output
-        run: |
-          if [ -d "dist/WalletExporter.app" ]; then
-            echo "✓ Build output found"
-            ls -la dist/
-          else
-            echo "✗ Build output NOT found"
-            exit 1
-          fi
-
-      - name: Create ZIP archive
+      - name: Create ZIP
         run: |
           cd dist
           zip -r WalletExporter.app.zip WalletExporter.app
-          echo "✓ ZIP created"
-          ls -lh WalletExporter.app.zip
           cd ..
 
       - name: Upload to Release
