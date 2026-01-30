@@ -47,7 +47,7 @@ echo ""
 # Clean previous builds
 if [ -d "dist" ]; then
     echo "Cleaning previous build artifacts..."
-    rm -rf dist build *.spec
+    rm -rf dist build
     echo "✓ Clean complete"
     echo ""
 fi

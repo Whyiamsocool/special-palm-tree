@@ -12,11 +12,11 @@ block_cipher = None
 
 a = Analysis(
     ['src/main.py'],
-    pathex=[str(Path.cwd())],
+    pathex=[str(Path.cwd()), 'src'],
     binaries=[],
     datas=[
-        # Include ttkbootstrap theme files
-        # PyInstaller should auto-detect, but explicit inclusion ensures themes work
+        # Include source modules (gui, api, export, utils)
+        ('src', 'src'),
     ],
     hiddenimports=[
         'ttkbootstrap',
