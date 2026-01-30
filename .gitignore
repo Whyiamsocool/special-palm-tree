@@ -13,6 +13,8 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+# Only ignore generated spec files in build/
+build/*.spec
 
 # IDE
 .idea/
