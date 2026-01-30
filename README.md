@@ -10,7 +10,7 @@ Export ERC-20 token transactions from Etherscan to Excel files.
 
 ### Step 1: Download
 Go to [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases) and download for your OS:
-- **Windows:** `WalletExporter.zip` (95 MB)
+- **Windows:** `WalletExporter.zip` (23.2 MB) - Super fast download!
 - **macOS:** `WalletExporter.app.zip` (60 MB)
 
 ### Step 2: Extract
