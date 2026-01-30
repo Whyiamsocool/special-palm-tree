@@ -3,7 +3,7 @@ name: Build Executables
 on:
   release:
     types: [created, edited]
-  workflow_dispatch:  # Allow manual trigger from Actions tab
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -25,14 +25,57 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Verify spec file exists
+        run: |
+          if (Test-Path "WalletExporter.spec") {
+            echo "✓ WalletExporter.spec found"
+          } else {
+            echo "✗ WalletExporter.spec NOT found"
+            exit 1
+          }
+        shell: powershell
+
+      - name: Verify src folder exists
+        run: |
+          if (Test-Path "src") {
+            echo "✓ src folder found"
+            dir src
+          } else {
+            echo "✗ src folder NOT found"
+            exit 1
+          }
+        shell: powershell
+
       - name: Build Windows EXE
-        run: pyinstaller WalletExporter.spec
+        run: |
+          echo "Running PyInstaller..."
+          pyinstaller WalletExporter.spec
+          if ($LASTEXITCODE -ne 0) {
+            echo "Build failed!"
+            exit 1
+          }
+          echo "Build completed successfully"
+        shell: powershell
+
+      - name: Verify build output
+        run: |
+          if (Test-Path "dist\WalletExporter") {
+            echo "✓ Build output found"
+            dir dist\WalletExporter
+          } else {
+            echo "✗ Build output NOT found"
+            exit 1
+          }
+        shell: powershell
 
       - name: Create ZIP archive
         run: |
           cd dist
-          powershell -Command "Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip -Force"
+          Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip -Force
+          echo "✓ ZIP created"
+          dir WalletExporter.zip
           cd ..
+        shell: powershell
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
@@ -61,14 +104,51 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Verify spec file exists
+        run: |
+          if [ -f "WalletExporter.spec" ]; then
+            echo "✓ WalletExporter.spec found"
+          else
+            echo "✗ WalletExporter.spec NOT found"
+            exit 1
+          fi
+
+      - name: Verify src folder exists
+        run: |
+          if [ -d "src" ]; then
+            echo "✓ src folder found"
+            ls -la src
+          else
+            echo "✗ src folder NOT found"
+            exit 1
+          fi
+
       - name: Build macOS APP
         run: |
+          echo "Running PyInstaller..."
           pyinstaller WalletExporter.spec
+          if [ $? -ne 0 ]; then
+            echo "Build failed!"
+            exit 1
+          fi
+          echo "Build completed successfully"
+
+      - name: Verify build output
+        run: |
+          if [ -d "dist/WalletExporter.app" ]; then
+            echo "✓ Build output found"
+            ls -la dist/
+          else
+            echo "✗ Build output NOT found"
+            exit 1
+          fi
 
       - name: Create ZIP archive
         run: |
           cd dist
           zip -r WalletExporter.app.zip WalletExporter.app
+          echo "✓ ZIP created"
+          ls -lh WalletExporter.app.zip
           cd ..
 
       - name: Upload to Release
