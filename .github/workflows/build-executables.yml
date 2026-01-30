@@ -1,0 +1,85 @@
+name: Build Executables
+
+on:
+  release:
+    types: [created, edited]
+  workflow_dispatch:  # Allow manual trigger from Actions tab
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    name: Build Windows EXE
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Windows EXE
+        run: |
+          cd .
+          pyinstaller WalletExporter.spec
+        shell: cmd
+
+      - name: Create ZIP archive
+        run: |
+          cd dist
+          powershell Compress-Archive -Path WalletExporter -DestinationPath WalletExporter.zip
+          cd ..
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'release'
+        with:
+          files: |
+            dist/WalletExporter.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-macos:
+    runs-on: macos-latest
+    name: Build macOS APP
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build macOS APP
+        run: |
+          pyinstaller WalletExporter.spec
+
+      - name: Create ZIP archive
+        run: |
+          cd dist
+          zip -r WalletExporter.app.zip WalletExporter.app
+          cd ..
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'release'
+        with:
+          files: |
+            dist/WalletExporter.app.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
