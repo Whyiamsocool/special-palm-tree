@@ -4,32 +4,40 @@ Export ERC-20 token transactions from Etherscan to Excel files.
 
 ---
 
-## 🚀 For Non-Technical Users (Fastest Way)
+## 🚀 Download & Run (No Installation Needed!)
 
 **No coding experience? No problem!**
 
-1. **Download** the app for your computer:
-   - **Windows:** Download `WalletExporter.exe` from [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases)
-   - **macOS:** Download `WalletExporter.app` from [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases)
+### Step 1: Download
+Go to [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases) and download for your OS:
+- **Windows:** `WalletExporter.zip` (95 MB)
+- **macOS:** `WalletExporter.app.zip` (60 MB)
 
-2. **Double-click** to open (just like any other app)
+### Step 2: Extract
+Right-click the zip → **Extract All** (or double-click to extract)
 
-3. **Get a free API key:**
-   - Go to https://etherscan.io/apis
-   - Click "Create Account" (if needed)
-   - Paste the API key into the app
+### Step 3: Run
+- **Windows:** Double-click `WalletExporter.exe`
+- **macOS:** Double-click `WalletExporter.app` (if security warning appears, right-click → Open)
 
-4. **Enter your wallet address** (starts with 0x)
+### Step 4: Get API Key
+1. Go to https://etherscan.io/apis
+2. Create account (if needed)
+3. Copy your API key
 
-5. **Click "Export"** and choose where to save the Excel file
+### Step 5: Export
+1. Paste API key into app
+2. Enter wallet address (0x...)
+3. Click "Export"
+4. Choose where to save Excel file
 
-That's it! ✨
+**That's it!** ✨ No Python, no setup, no hassle!
 
 ---
 
-## Advanced: Run from Source Code
+## For Developers: Run from Source
 
-**For developers who want to run from source:**
+**If you want to run from source code:**
 
 ```bash
 # Clone the repository
@@ -49,9 +57,11 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-## Advanced: Building Executables (For Developers)
+## For Developers: Build Executables
 
-If you want to create your own .app or .exe from the source code:
+**Already built versions are available in [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases).**
+
+To build your own from source:
 
 **macOS:**
 ```bash
@@ -65,7 +75,7 @@ build_windows.bat
 # Creates: dist/WalletExporter/WalletExporter.exe
 ```
 
-See [BUILD.md](BUILD.md) for detailed build instructions and troubleshooting.
+See [BUILD.md](BUILD.md) for detailed build instructions, prerequisites, and troubleshooting.
 
 ## Features
 
@@ -78,15 +88,21 @@ See [BUILD.md](BUILD.md) for detailed build instructions and troubleshooting.
 
 ## Requirements
 
-### Just Want to Use It? (Non-Technical Users)
+### To Use the App (Recommended)
 - **Windows 10+** or **macOS 10.14+**
 - **Internet connection** (for Etherscan API)
-- **That's all!** No Python, no setup, no coding needed
+- **That's it!** ✅ No Python, no installation, no setup
 
-### Want to Build It Yourself? (Developers)
+Just download from [Releases](https://github.com/Whyiamsocool/special-palm-tree/releases) and run!
+
+### To Run from Source Code
 - **Python 3.11+**
 - Basic terminal knowledge
-- See [BUILD.md](BUILD.md) for detailed instructions
+- See [BUILD.md](BUILD.md)
+
+### To Build Executables
+- **Python 3.11+**
+- See [BUILD.md](BUILD.md) for detailed build instructions
 
 ## How to Use
 
